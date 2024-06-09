@@ -13,7 +13,7 @@
 document.addEventListener('DOMContentLoaded', function () {
   const output = document.getElementById('output');
 
-  fetch('http://agoodmovietowatch.com/api/content?page=1&limit=2&mood=thought-provoking&by=top&content_type=movie')
+  fetch('https://agoodmovietowatch.com/api/content?page=1&limit=2&mood=thought-provoking&by=top&content_type=movie')
     .then(response => response.json())
     .then(data => {
       const formattedData = data.map(item => ({
