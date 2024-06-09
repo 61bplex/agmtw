@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch JSON Data</title>
+</head>
+<body>
+  <h1>JSON Data</h1>
+  <div id="output"></div>
+
+  <script >
+document.addEventListener('DOMContentLoaded', function () {
+  const output = document.getElementById('output');
+
+  fetch('http://agoodmovietowatch.com/api/content?page=1&limit=2&mood=thought-provoking&by=top&content_type=movie')
+    .then(response => response.json())
+    .then(data => {
+      const formattedData = data.map(item => ({
+        id: item.id,
+        imdb_id: item.meta.imdb,
+        title: item.title,
+        release_year: '', // Add your logic to extract release year if available
+        clean_title: `/film/${item.slug}/`, // Assuming slug is part of clean_title
+        adult: false // Assuming there's no adult content in the data
+      }));
+
+      // Display formatted data
+      output.innerHTML = `<pre>${JSON.stringify(formattedData, null, 2)}</pre>`;
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      output.innerHTML = 'Error fetching data. Please try again later.';
+    });
+});
+
+</script>
+</body>
+</html>
